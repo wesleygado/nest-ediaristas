@@ -1,0 +1,42 @@
+<div class="content-header">
+  <div class="container-fluid">
+    <h1>Lista de Usuários</h1>
+  </div>
+</div>
+<div class="content">
+  <div class="container-fluid">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Email</th>
+          <th scope="col">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each users}}
+        <tr>
+          <th>{{this.id}}</th>
+          <td>{{this.name}}</td>
+          <td>{{this.email}}</td>
+          <td>
+            <a href="/users/{{this.id}}/edit" class="btn btn-primary">Atualizar</a>
+            <form action="/users/{{this.id}}?_method=DELETE" method="post" style="display: inline">
+              <input type="hidden" name="_method" value="DELETE"> <input type="hidden" name="_token" value="#">
+              <button type="submit" value="submit" onclick="return confirm('Tem certeza que deseja apagar?')"
+                class="btn btn-danger">Excluir</button>
+            </form>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+    </div>
+    <div class="float-right">
+      <a href="create" class="btn btn-success">Novo
+        Usuário</a>
+    </div>
+  </div>
+</div>
