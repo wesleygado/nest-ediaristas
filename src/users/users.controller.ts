@@ -22,19 +22,23 @@ import { PatchUserException } from 'src/common/filters/patch-user-exceptions.fil
 
 @Controller('users')
 export class UsersController {
-  constructor(private usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) {}
   @UseGuards(AuthenticatedGuard)
+  @UseFilters(AuthExceptionFilter)
   @Get('create')
   @Render('users/create')
   getCreate(@Request() req) {
     return {
       message: req.flash('message'),
       alert: req.flash('alert'),
+      user_name: req.flash('user_name'),
+      user_email: req.flash('user_email'),
     };
   }
 
   @UseGuards(AuthenticatedGuard)
   @UseFilters(CreateUserException)
+  @UseFilters(AuthExceptionFilter)
   @Post()
   @Redirect('users/index')
   async create(@Body() createUserDto: CreateUserDto) {
@@ -58,7 +62,6 @@ export class UsersController {
   }
 
   @UseFilters(AuthExceptionFilter)
-  @UseGuards(AuthenticatedGuard)
   @Get(':id/edit')
   @Render('users/edit')
   async updateUser(@Param('id') id: string, @Request() req) {
@@ -67,11 +70,12 @@ export class UsersController {
       user: user,
       message: req.flash('message'),
       alert: req.flash('alert'),
+      user_name: req.flash('user_name'),
+      user_email: req.flash('user_email'),
     };
   }
 
   @UseFilters(PatchUserException)
-  @UseGuards(AuthenticatedGuard)
   @Patch(':id/edit')
   @Redirect('/users/index')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {

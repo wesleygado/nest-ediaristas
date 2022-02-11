@@ -10,7 +10,7 @@ import { Response } from 'express';
 import { Utils } from '../utils/utils';
 
 @Catch(HttpException)
-export class PatchUserException implements ExceptionFilter {
+export class PatchServiceException implements ExceptionFilter {
   constructor(private utils: Utils) {}
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
@@ -25,12 +25,12 @@ export class PatchUserException implements ExceptionFilter {
         'message',
         this.utils.exceptionToString(exception['response']['message']),
       );
-      request.flash('user_name', request.body.name);
-      request.flash('user_email', request.body.email);
+      const service = request.body;
+      request.flash(service);
       request.flash('alert', 'alert alert-danger');
       response.redirect('edit');
     } else {
-      response.redirect('/users/index');
+      response.redirect('/services/index');
     }
   }
 }

@@ -27,6 +27,8 @@ export class CreateUserException implements ExceptionFilter {
         'message',
         this.utils.exceptionToString(exception['response']['message']),
       );
+      request.flash('user_name', request.body.name);
+      request.flash('user_email', request.body.email);
       request.flash('alert', 'alert alert-danger');
       response.redirect('/users/create');
     } else {

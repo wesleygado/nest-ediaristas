@@ -23,11 +23,12 @@ export class AuthExceptionFilter implements ExceptionFilter {
         'loginError',
         'Essas credenciais não foram encontradas em nossos registros',
       );
+      request.flash('user_name', request.body.username);
       request.flash('class', 'is-invalid');
       request.flash('invalid', 'erro-form-login');
       response.redirect('/login');
     } else {
-      response.redirect('/login');
+      response.redirect('/home');
     }
   }
 }
