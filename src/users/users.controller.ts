@@ -29,10 +29,10 @@ export class UsersController {
   @Render('users/create')
   getCreate(@Request() req) {
     return {
+      user: req.user,
       message: req.flash('message'),
       alert: req.flash('alert'),
-      user_name: req.flash('user_name'),
-      user_email: req.flash('user_email'),
+      user_old: req.flash('user'),
     };
   }
 
@@ -49,9 +49,9 @@ export class UsersController {
   @UseGuards(AuthenticatedGuard)
   @Get('index')
   @Render('users/index')
-  async findAll() {
+  async findAll(@Request() req) {
     const users = await this.usersService.findAll();
-    return { users: users };
+    return { users: users, user: req.user };
   }
 
   @UseFilters(AuthExceptionFilter)
@@ -70,8 +70,7 @@ export class UsersController {
       user: user,
       message: req.flash('message'),
       alert: req.flash('alert'),
-      user_name: req.flash('user_name'),
-      user_email: req.flash('user_email'),
+      user_old: req.flash('user'),
     };
   }
 

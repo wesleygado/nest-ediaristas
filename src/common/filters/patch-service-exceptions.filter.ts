@@ -26,7 +26,7 @@ export class PatchServiceException implements ExceptionFilter {
         this.utils.exceptionToString(exception['response']['message']),
       );
       const service = request.body;
-      request.flash(service);
+      request.flash('service', service);
       request.flash('alert', 'alert alert-danger');
       response.redirect('edit');
     } else {

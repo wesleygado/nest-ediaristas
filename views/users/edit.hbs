@@ -11,20 +11,15 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="name">Nome do usuário</label>
-                <input value="{{#if message}}{{user_name}}{{^}}{{user.name}}{{/if}}" type="input" class="form-control" name="name" id="name"
+                <input value="{{#if message}}{{user_old.0.name}}{{^}}{{user.name}}{{/if}}" type="input" class="form-control" name="name" id="name"
                   placeholder="Digite o nome do usuário">
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="email">Email do usuário</label>
-              {{#if message}}
-                <input value="{{user_email}}" type="text" class="form-control" name="email" id="email"
+                <input value="{{#if message}}{{user_old.0.email}}{{^}}{{user.email}}{{/if}}" type="text" class="form-control" name="email" id="email"
                   placeholder="Digite o email do usuário">
-                {{else}}
-                <input value="{{user.email}}" type="text" class="form-control" name="email" id="email"
-                  placeholder="Digite o email do usuário">
-              {{/if}}
             </div>
           </div>
         </div>

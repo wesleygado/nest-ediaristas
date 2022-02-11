@@ -77,7 +77,7 @@ export class CreateServiceDto {
   valor_outros: number;
 
   @IsNotEmpty({
-    message: 'Campo Horas Outrosnão pode ser vazio.',
+    message: 'Campo Horas Outros não pode ser vazio.',
   })
   horas_outros: number;
 

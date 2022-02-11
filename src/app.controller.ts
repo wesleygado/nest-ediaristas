@@ -19,8 +19,7 @@ import { AuthGuard } from '@nestjs/passport';
 export class AppController {
   @Get('login')
   async login(@Request() req, @Res() res: Response) {
-    const result = req.isAuthenticated();
-    if (!result) {
+    if (!req.isAuthenticated()) {
       res.render('login', {
         layout: false,
         message: req.flash('loginError'),

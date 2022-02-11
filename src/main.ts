@@ -8,6 +8,7 @@ import * as session from 'express-session';
 import * as passport from 'passport';
 import * as methodOverride from 'method-override';
 import flash = require('connect-flash');
+import { Request } from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -16,7 +17,15 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'public'));
   const viewsPath = join(__dirname, '../views');
 
-  app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: 'main' }));
+  app.engine('.hbs', exphbs.engine({ extname: '.hbs',
+  defaultLayout: 'main',
+  helpers: {
+    calc: function(req: Request) {
+      console.log(req.path)
+      return req.path;
+    }
+  },
+  }));
   app.set('views', viewsPath);
   app.set('view engine', '.hbs');
 

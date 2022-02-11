@@ -24,36 +24,18 @@ import { AuthenticatedGuard } from 'src/common/guards/authenticated.guard';
 export class ServicesController {
   constructor(private readonly servicesService: ServicesService) {}
 
-  @UseGuards(AuthenticatedGuard)
   @Get('create')
   @Render('services/create')
   getCreate(@Request() req) {
     return {
-      message: req.flash('message'),
+      service_old: req.flash('service'),
       alert: req.flash('alert'),
-      service_name: req.flash('service_name'),
-      service_valor_minimo: req.flash('service_valor_minimo'),
-      service_quantidade_horas: req.flash('service_quantidade_horas'),
-      service_porcentagem: req.flash('service_porcentagem'),
-      service_valor_quarto: req.flash('service_valor_quarto'),
-      service_horas_quarto: req.flash('service_horas_quarto'),
-      service_valor_sala: req.flash('service_valor_sala'),
-      service_horas_sala: req.flash('service_horas_sala'),
-      service_valor_banheiro: req.flash('service_valor_banheiro'),
-      service_horas_banheiro: req.flash('service_horas_banheiro'),
-      service_valor_cozinha: req.flash('service_valor_cozinha'),
-      service_horas_cozinha: req.flash('service_horas_cozinha'),
-      service_valor_quintal: req.flash('service_valor_quintal'),
-      service_horas_quintal: req.flash('service_horas_quintal'),
-      service_valor_outros: req.flash('service_valor_outros'),
-      service_horas_outros: req.flash('service_horas_outros'),
-      service_icone: req.flash('service_icone'),
-      service_posicao: req.flash('service_posicao'),
+      message: req.flash('message'),
+      user: req.user,
     };
   }
 
   @UseFilters(CreateServiceException)
-  @UseGuards(AuthenticatedGuard)
   @Post()
   @Redirect('services/index')
   create(@Body() createServiceDto: CreateServiceDto) {
@@ -63,9 +45,9 @@ export class ServicesController {
   @UseGuards(AuthenticatedGuard)
   @Get('index')
   @Render('services/index')
-  async findAll() {
+  async findAll(@Request() req) {
     const services = await this.servicesService.findAll();
-    return { services: services };
+    return { services: services, user: req.user, };
   }
 
   @UseGuards(AuthenticatedGuard)
@@ -77,24 +59,8 @@ export class ServicesController {
       service: service,
       message: req.flash('message'),
       alert: req.flash('alert'),
-      service_name: req.flash('service_name'),
-      service_valor_minimo: req.flash('service_valor_minimo'),
-      service_quantidade_horas: req.flash('service_quantidade_horas'),
-      service_porcentagem: req.flash('service_porcentagem'),
-      service_valor_quarto: req.flash('service_valor_quarto'),
-      service_horas_quarto: req.flash('service_horas_quarto'),
-      service_valor_sala: req.flash('service_valor_sala'),
-      service_horas_sala: req.flash('service_horas_sala'),
-      service_valor_banheiro: req.flash('service_valor_banheiro'),
-      service_horas_banheiro: req.flash('service_horas_banheiro'),
-      service_valor_cozinha: req.flash('service_valor_cozinha'),
-      service_horas_cozinha: req.flash('service_horas_cozinha'),
-      service_valor_quintal: req.flash('service_valor_quintal'),
-      service_horas_quintal: req.flash('service_horas_quintal'),
-      service_valor_outros: req.flash('service_valor_outros'),
-      service_horas_outros: req.flash('service_horas_outros'),
-      service_icone: req.flash('service_icone'),
-      service_posicao: req.flash('service_posicao'),
+      service_old: req.flash('service'),
+      user: req.user
     };
   }
 
