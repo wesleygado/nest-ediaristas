@@ -23,20 +23,17 @@ import { PatchUserException } from 'src/common/filters/patch-user-exceptions.fil
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-  @UseGuards(AuthenticatedGuard)
   @UseFilters(AuthExceptionFilter)
   @Get('create')
   @Render('users/create')
   getCreate(@Request() req) {
     return {
-      user: req.user,
       message: req.flash('message'),
       alert: req.flash('alert'),
       user_old: req.flash('user'),
     };
   }
 
-  @UseGuards(AuthenticatedGuard)
   @UseFilters(CreateUserException)
   @UseFilters(AuthExceptionFilter)
   @Post()
@@ -46,16 +43,14 @@ export class UsersController {
   }
 
   @UseFilters(AuthExceptionFilter)
-  @UseGuards(AuthenticatedGuard)
   @Get('index')
   @Render('users/index')
   async findAll(@Request() req) {
     const users = await this.usersService.findAll();
-    return { users: users, user: req.user };
+    return { users: users };
   }
 
   @UseFilters(AuthExceptionFilter)
-  @UseGuards(AuthenticatedGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
@@ -81,7 +76,6 @@ export class UsersController {
     return await this.usersService.update(id, updateUserDto);
   }
 
-  @UseGuards(AuthenticatedGuard)
   @Delete(':id')
   @Redirect('index')
   remove(@Param('id') id: string) {

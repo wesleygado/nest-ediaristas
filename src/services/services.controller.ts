@@ -31,7 +31,6 @@ export class ServicesController {
       service_old: req.flash('service'),
       alert: req.flash('alert'),
       message: req.flash('message'),
-      user: req.user,
     };
   }
 
@@ -42,15 +41,13 @@ export class ServicesController {
     return this.servicesService.create(createServiceDto);
   }
 
-  @UseGuards(AuthenticatedGuard)
   @Get('index')
   @Render('services/index')
   async findAll(@Request() req) {
     const services = await this.servicesService.findAll();
-    return { services: services, user: req.user, };
+    return { services: services };
   }
 
-  @UseGuards(AuthenticatedGuard)
   @Get(':id/edit')
   @Render('services/edit')
   async findOne(@Param('id') id: number, @Request() req) {
@@ -60,18 +57,15 @@ export class ServicesController {
       message: req.flash('message'),
       alert: req.flash('alert'),
       service_old: req.flash('service'),
-      user: req.user
     };
   }
 
-  @UseGuards(AuthenticatedGuard)
   @Get('id/edit')
   @Render('services/edit')
   updateService() {
     //
   }
 
-  @UseGuards(AuthenticatedGuard)
   @UseFilters(PatchServiceException)
   @Patch(':id/edit')
   @Redirect('/services/index')
@@ -82,7 +76,6 @@ export class ServicesController {
     return await this.servicesService.update(id, updateServiceDto);
   }
 
-  @UseGuards(AuthenticatedGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.servicesService.remove(+id);
