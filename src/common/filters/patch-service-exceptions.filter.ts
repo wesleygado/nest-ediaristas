@@ -17,10 +17,7 @@ export class PatchServiceException implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest();
 
-    if (
-      exception instanceof BadRequestException ||
-      exception instanceof InternalServerErrorException
-    ) {
+    if (exception instanceof BadRequestException) {
       request.flash(
         'message',
         this.utils.exceptionToString(exception['response']['message']),

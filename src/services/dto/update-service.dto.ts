@@ -8,7 +8,7 @@ export class UpdateServiceDto extends PartialType(CreateServiceDto) {
   @IsNotEmpty({
     message: 'Campo nome não pode ser vazio.',
   })
-  name: string;
+  nam: string;
 
   @IsNotEmpty({
     message: 'Campo Valor Mínimo não pode ser vazio.',

@@ -7,7 +7,6 @@ import {
   UseGuards,
   Request,
   UseFilters,
-  Redirect,
 } from '@nestjs/common';
 import { AuthenticatedGuard } from './common/guards/authenticated.guard';
 import { LoginGuard } from './common/guards/login.guard';
@@ -51,5 +50,17 @@ export class AppController {
   @Render('home')
   home(@Request() req) {
     return { user: req.user };
+  }
+
+  @Get('/404')
+  @Render('404')
+  notFound() {
+    return { layout: false };
+  }
+
+  @Get('/500')
+  @Render('500')
+  erroServer() {
+    return { layout: false };
   }
 }

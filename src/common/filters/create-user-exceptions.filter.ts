@@ -18,11 +18,7 @@ export class CreateUserException implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest();
 
-    if (
-      exception instanceof BadRequestException ||
-      exception instanceof InternalServerErrorException ||
-      exception instanceof ForbiddenException
-    ) {
+    if (exception instanceof BadRequestException) {
       request.flash(
         'message',
         this.utils.exceptionToString(exception['response']['message']),
