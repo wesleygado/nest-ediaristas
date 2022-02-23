@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { ServicesService } from './services.service';
-import { ServicesController } from './services.controller';
+import { ServicesService } from './servicos.service';
+import { ServicesController } from './servicos.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ServicesRepository } from './services.repository';
+import { ServicesRepository } from './servicos.repository';
 import { Utils } from 'src/common/utils/utils';
 
 @Module({

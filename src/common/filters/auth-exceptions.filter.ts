@@ -5,6 +5,7 @@ import {
   HttpException,
   UnauthorizedException,
   ForbiddenException,
+  NotFoundException,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
@@ -27,8 +28,8 @@ export class AuthExceptionFilter implements ExceptionFilter {
       request.flash('class', 'is-invalid');
       request.flash('invalid', 'erro-form-login');
       response.redirect('/login');
-    } else {
-      response.redirect('/home');
+    } else if (exception instanceof NotFoundException) {
+      response.redirect('/404');
     }
   }
 }

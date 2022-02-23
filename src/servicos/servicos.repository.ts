@@ -1,6 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { CreateServiceDto } from './dto/create-service.dto';
-import { Service } from './entities/service.entity';
+import { CreateServiceDto } from './dto/create-servico.dto';
+import { Service } from './entities/servico.entity';
 
 @EntityRepository(Service)
 export class ServicesRepository extends Repository<Service> {
@@ -31,7 +31,6 @@ export class ServicesRepository extends Repository<Service> {
       icone,
       posicao,
     } = createServiceDto;
-
     const service = this.create({
       name,
       valor_minimo,

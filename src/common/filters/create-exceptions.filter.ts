@@ -3,31 +3,41 @@ import {
   BadRequestException,
   Catch,
   ExceptionFilter,
+  ForbiddenException,
   HttpException,
   InternalServerErrorException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { Utils } from '../utils/utils';
 
 @Catch(HttpException)
-export class PatchServiceException implements ExceptionFilter {
+export class CreateException implements ExceptionFilter {
   constructor(private utils: Utils) {}
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest();
+    const url = request.originalUrl;
+    const old = request.body;
 
     if (exception instanceof BadRequestException) {
       request.flash(
         'message',
         this.utils.exceptionToString(exception['response']['message']),
       );
-      const service = request.body;
-      request.flash('service', service);
+
+      console.log(url);
+      request.flash('old', old);
       request.flash('alert', 'alert alert-danger');
-      response.redirect('edit');
+      response.redirect(`${url}/create`);
+    } else if (
+      exception instanceof ForbiddenException ||
+      exception instanceof UnauthorizedException
+    ) {
+      response.redirect('/login');
     } else {
-      response.redirect('/services/index');
+      response.redirect(`${url}/index`);
     }
   }
 }

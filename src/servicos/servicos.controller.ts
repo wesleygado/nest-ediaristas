@@ -11,62 +11,78 @@ import {
   Request,
   Redirect,
   UseGuards,
+  NotFoundException,
 } from '@nestjs/common';
-import { ServicesService } from './services.service';
-import { CreateServiceDto } from './dto/create-service.dto';
-import { UpdateServiceDto } from './dto/update-service.dto';
+import { ServicesService } from './servicos.service';
+import { CreateServiceDto } from './dto/create-servico.dto';
+import { UpdateServiceDto } from './dto/update-servico.dto';
 import { AuthExceptionFilter } from 'src/common/filters/auth-exceptions.filter';
-import { CreateServiceException } from 'src/common/filters/create-service-excepetions.filter';
-import { PatchServiceException } from 'src/common/filters/patch-service-exceptions.filter';
+import { PatchException } from 'src/common/filters/patch-exceptions.filter';
 import { AuthenticatedGuard } from 'src/common/guards/authenticated.guard';
+import { CreateException } from 'src/common/filters/create-exceptions.filter';
 
 @Controller('services')
 export class ServicesController {
   constructor(private readonly servicesService: ServicesService) {}
-
+  @UseGuards(AuthenticatedGuard)
+  @UseFilters(AuthExceptionFilter)
   @Get('create')
   @Render('services/create')
   getCreate(@Request() req) {
     return {
-      service_old: req.flash('service'),
+      service_old: req.flash('old'),
       alert: req.flash('alert'),
       message: req.flash('message'),
+      csrfToken: req.csrfToken(),
     };
   }
 
-  @UseFilters(CreateServiceException)
+  @UseGuards(AuthenticatedGuard)
+  @UseFilters(CreateException)
   @Post()
   @Redirect('services/index')
   create(@Body() createServiceDto: CreateServiceDto) {
     return this.servicesService.create(createServiceDto);
   }
 
+  @UseGuards(AuthenticatedGuard)
+  @UseFilters(AuthExceptionFilter)
   @Get('index')
   @Render('services/index')
-  async findAll(@Request() req) {
+  async findAll() {
     const services = await this.servicesService.findAll();
     return { services: services };
   }
 
+  @UseGuards(AuthenticatedGuard)
+  @UseFilters(AuthExceptionFilter)
   @Get(':id/edit')
   @Render('services/edit')
   async findOne(@Param('id') id: number, @Request() req) {
     const service = await this.servicesService.findOne(id);
-    return {
-      service: service,
-      message: req.flash('message'),
-      alert: req.flash('alert'),
-      service_old: req.flash('service'),
-    };
+    if (!service) {
+      throw new NotFoundException();
+    } else {
+      return {
+        service: service,
+        message: req.flash('message'),
+        alert: req.flash('alert'),
+        service_old: req.flash('old'),
+        csrfToken: req.csrfToken(),
+      };
+    }
   }
 
+  @UseGuards(AuthenticatedGuard)
+  @UseFilters(AuthExceptionFilter)
   @Get('id/edit')
   @Render('services/edit')
   updateService() {
     //
   }
 
-  @UseFilters(PatchServiceException)
+  @UseGuards(AuthenticatedGuard)
+  @UseFilters(PatchException)
   @Patch(':id/edit')
   @Redirect('/services/index')
   async update(
@@ -74,10 +90,5 @@ export class ServicesController {
     @Body() updateServiceDto: UpdateServiceDto,
   ) {
     return await this.servicesService.update(id, updateServiceDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.servicesService.remove(+id);
   }
 }

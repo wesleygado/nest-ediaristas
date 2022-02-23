@@ -1,4 +1,5 @@
 <form action="/users" method="post">
+  <input type="hidden" name="_csrf" value={{csrfToken}}>
   <div class="card">
     <div class="card-body">
       <fieldset>
@@ -11,14 +12,14 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="name">Nome do usuário</label>
-              <input value="{{user_old.0.name}}" type="input" class="form-control" name="name" id="name"
+              <input value="{{user_old.0.name}}" type="input" required class="form-control" name="name" id="name"
                 placeholder="Digite o nome do usuário">
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="email">Email do usuário</label>
-              <input value="{{user_old.0.email}}" type="text"  class="form-control" name="email" id="email"
+              <input value="{{user_old.0.email}}" type="text" required class="form-control" name="email" id="email"
                 placeholder="Digite o email do usuário">
             </div>
           </div>
@@ -28,14 +29,14 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="password">Senha</label>
-              <input value="" type="password" class="form-control" name="password" id="password"
+              <input value="" type="password" class="form-control" required name="password" id="password"
                 placeholder="Digite a senha do usuário">
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="password_confirmation">Confirmação da senha</label>
-              <input value="" type="password" class="form-control" name="password_confirmation"
+              <input value="" type="password" class="form-control" required name="password_confirmation"
                 id="password_confirmation" placeholder="Confirme a senha do usuário">
             </div>
           </div>

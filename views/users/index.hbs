@@ -23,7 +23,7 @@
           <td>
             <a href="/users/{{this.id}}/edit" class="btn btn-primary">Atualizar</a>
             <form action="/users/{{this.id}}?_method=DELETE" method="post" style="display: inline">
-              <input type="hidden" name="_method" value="DELETE"> <input type="hidden" name="_token" value="#">
+              <input type="hidden" name="_csrf" value="{{../csrfToken}}">
               <button type="submit" value="submit" onclick="return confirm('Tem certeza que deseja apagar?')"
                 class="btn btn-danger">Excluir</button>
             </form>
@@ -35,7 +35,7 @@
     <div class="d-flex justify-content-center">
     </div>
     <div class="float-right">
-      <a href="create" class="btn btn-success">Novo
+      <a href="create" class="btn btn-success">Novo 
         Usuário</a>
     </div>
   </div>

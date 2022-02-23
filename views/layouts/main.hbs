@@ -8,7 +8,6 @@
   <meta name="csrf-token" content="#">
   <title>Dashboard</title>
   <link rel="stylesheet" href="/fontawesome-free/css/all.min.css">
-  <link rel="stylesheet" href="/css/OverlayScrollbars.min.css">
   <link rel="stylesheet" href="/css/adminlte/adminlte.min.css">
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -58,8 +57,8 @@
       <div class="sidebar">
         <nav class="pt-2">
           <ul class="nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu">
-            <li class="nav-item has-treeview {{menuCadastroServiceOpen}}">
-              <a class="nav-link {{menuCadastroService}}" href="">
+            <li class="nav-item has-treeview {{#menuSuperior 'menu-is-opening menu-open' '/services/create' '/services/index'}}{{/menuSuperior}}">
+              <a class="nav-link {{#menuSuperior 'active' '/services/create' '/services/index'}}{{/menuSuperior}}" href="">
                 <i class="fas fa-fw fa-broom "></i>
                 <p>
                   Cadastro de Serviços
@@ -68,7 +67,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a class="nav-link {{menuIndexService}}" href="/services/index">
+                  <a class="nav-link {{#menuSubItem '/services/index'}}{{/menuSubItem}}" href="/services/index">
                     <i class="fas fa-fw fa-list "></i>
                     <p>
                       Lista de Serviços
@@ -76,7 +75,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link {{menuCreateService}}" href="/services/create">
+                  <a class="nav-link {{#menuSubItem '/services/create'}}{{/menuSubItem}}" href="/services/create">
                     <i class="fas fa-fw fa-file "></i>
                     <p>
                       Novo Serviço
@@ -85,8 +84,8 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item has-treeview {{menuCadastroUserOpen}}">
-              <a class="nav-link {{menuCadastroUser}}" href="">
+            <li class="nav-item has-treeview {{#menuSuperior 'menu-is-opening menu-open' '/users/create' '/users/index'}}{{/menuSuperior}}">
+              <a class="nav-link {{#menuSuperior 'active' '/users/create' '/users/index'}}{{/menuSuperior}}" href="">
                 <i class="fas fa-fw fa-user "></i>
                 <p>
                   Cadastro de Usuários
@@ -95,7 +94,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a class="nav-link {{menuIndexUser}}" href="/users/index">
+                  <a class="nav-link {{#menuSubItem '/users/index'}}{{/menuSubItem}}" href="/users/index">
                     <i class="fas fa-fw fa-list"></i>
                     <p>
                       Lista de Usuários
@@ -103,7 +102,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link {{menuCreateUser}}" href="/users/create">
+                  <a class="nav-link {{#menuSubItem '/users/create'}}{{/menuSubItem}}" href="/users/create">
                     <i class="fas fa-fw fa-file "></i>
                     <p>
                       Novo Usuário
@@ -113,7 +112,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link {{url}}" href="">
+              <a class="nav-link" href="">
                 <i class="fas fa-fw fa-clipboard-list "></i>
                 <p>
                   Lista de diárias

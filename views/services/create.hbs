@@ -7,6 +7,7 @@
 <div class="content">
   <div class="container-fluid">
     <form action="/services" method="post">
+      <input type="hidden" name="_csrf" value="{{csrfToken}}">
       <div class="card">
         <div class="card-body">
           <fieldset>
@@ -20,14 +21,14 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="nome">Nome</label>
-                  <input value="{{service_old.0.name}}" type="input" class="form-control" name="name" id="name"
+                  <input value="{{service_old.0.name}}" type="input" required class="form-control" name="name" id="name"
                     placeholder="Nome do serviço" />
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="icone">Ícone</label>
-                  <select name="icone" id="icone" class="form-control">
+                  <select name="icone" id="icone" required class="form-control">
                     <option value="{{#if message}}{{service_old.0.icone}}{{^}}Selecione o icone{{/if}}">{{#if message}}{{service_old.0.icone}}{{^}}Selecione o icone{{/if}}</option>
                     <option value="twf-cleaning-1">Ícone 1</option>
                     <option value="twf-cleaning-2">Ícone 2</option>
@@ -38,7 +39,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="posicao">Posição na plataforma</label>
-                  <input value="{{service_old.0.posicao}}" type="input" class="form-control" name="posicao" id="posicao" data-mask="00"
+                  <input value="{{service_old.0.posicao}}" type="input" required class="form-control" name="posicao" id="posicao" data-mask="00"
                     placeholder="Posição do serviço na plataforma" />
                 </div>
               </div>
@@ -51,21 +52,21 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="valor_minimo">Valor Mínimo</label>
-                  <input value="{{service_old.0.valor_minimo}}" type="input" class="form-control" name="valor_minimo" id="valor_minimo"
-                    placeholder="Valor mínimo do serviço" />
+                  <input value="{{service_old.0.valor_minimo}}" type="input" required class="form-control" name="valor_minimo" id="valor_minimo"
+                    data-mask="#.##0,00" data-mask-reverse="true" placeholder="Valor mínimo do serviço" />
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="quantidade_horas">Quantidade Mínima de horas</label>
-                  <input value="{{service_old.0.quantidade_horas}}" type="input" class="form-control" name="quantidade_horas" id="quantidade_horas"
+                  <input value="{{service_old.0.quantidade_horas}}" type="input" required class="form-control" name="quantidade_horas" id="quantidade_horas"
                     data-mask="0" placeholder="Quantidade mínima de horas" />
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="porcentagem">Porcentagem de Comissão</label>
-                  <input value="{{service_old.0.porcentagem}}" type="input" class="form-control" name="porcentagem" id="porcentagem" data-mask="00"
+                  <input value="{{service_old.0.porcentagem}}" type="input" required class="form-control" name="porcentagem" id="porcentagem" data-mask="00"
                     placeholder="porcentagem de comissão no serviço" />
                 </div>
               </div>
@@ -78,14 +79,14 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="valor_quarto">Valor por Quarto</label>
-                  <input value="{{service_old.0.valor_quarto}}" type="input" class="form-control" name="valor_quarto" id="valor_quarto"
+                  <input value="{{service_old.0.valor_quarto}}" type="input" required class="form-control" name="valor_quarto" id="valor_quarto"
                     data-mask="#.##0,00" data-mask-reverse="true" placeholder="Valor por quarto" />
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="horas_quarto">Quantidade de Horas por quarto</label>
-                  <input value="{{service_old.0.horas_quarto}}" type="input" class="form-control" name="horas_quarto" id="horas_quarto" data-mask="0"
+                  <input value="{{service_old.0.horas_quarto}}" type="input" required class="form-control" name="horas_quarto" id="horas_quarto" data-mask="0"
                     placeholder="Quantidade horas por quarto" />
                 </div>
               </div>
@@ -95,14 +96,14 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="valor_sala">Valor por sala</label>
-                  <input value="{{service_old.0.valor_sala}}" type="input" class="form-control" name="valor_sala" id="valor_sala"
+                  <input value="{{service_old.0.valor_sala}}" type="input" required class="form-control" name="valor_sala" id="valor_sala"
                     data-mask="#.##0,00" data-mask-reverse="true" placeholder="Valor por sala" />
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="horas_sala">Quantidade de horas por sala</label>
-                  <input value="{{service_old.0.horas_sala}}" type="input" class="form-control" name="horas_sala" id="horas_sala" data-mask="0"
+                  <input value="{{service_old.0.horas_sala}}" type="input" required class="form-control" name="horas_sala" id="horas_sala" data-mask="0"
                     placeholder="Quantidade horas por sala" />
                 </div>
               </div>
@@ -112,14 +113,14 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="valor_banheiro">Valor por banheiro</label>
-                  <input value="{{service_old.0.valor_banheiro}}" type="input" class="form-control" name="valor_banheiro" id="valor_banheiro"
+                  <input value="{{service_old.0.valor_banheiro}}" type="input" required class="form-control" name="valor_banheiro" id="valor_banheiro"
                     data-mask="#.##0,00" data-mask-reverse="true" placeholder="Valor por banheiro" />
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="horas_banheiro">Quantidade de horas por banheiro</label>
-                  <input value="{{service_old.0.horas_banheiro}}" type="input" class="form-control" name="horas_banheiro" data-mask="0"
+                  <input value="{{service_old.0.horas_banheiro}}" type="input" required class="form-control" name="horas_banheiro" data-mask="0"
                     id="horas_banheiro" placeholder="Quantidade horas por banheiro" />
                 </div>
               </div>
@@ -129,14 +130,14 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="valor_cozinha">Valor por cozinha</label>
-                  <input value="{{service_old.0.valor_cozinha}}" type="input" class="form-control" name="valor_cozinha" id="valor_cozinha"
+                  <input value="{{service_old.0.valor_cozinha}}" type="input" required class="form-control" name="valor_cozinha" id="valor_cozinha"
                     data-mask="#.##0,00" data-mask-reverse="true" placeholder="Valor por cozinha" />
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="horas_cozinha">Quantidade de horas por cozinha</label>
-                  <input value="{{service_old.0.horas_cozinha}}" type="input" class="form-control" name="horas_cozinha" data-mask="0"
+                  <input value="{{service_old.0.horas_cozinha}}" type="input" required class="form-control" name="horas_cozinha" data-mask="0"
                     id="horas_cozinha" placeholder="Quantidade horas por cozinha" />
                 </div>
               </div>
@@ -146,14 +147,14 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="valor_quintal">Valor por quintal</label>
-                  <input value="{{service_old.0.valor_quintal}}" type="input" class="form-control" name="valor_quintal" id="valor_quintal"
+                  <input value="{{service_old.0.valor_quintal}}" type="input" required class="form-control" name="valor_quintal" id="valor_quintal"
                     data-mask="#.##0,00" data-mask-reverse="true" placeholder="Valor por quintal" />
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="horas_quintal">Quantidade de horas por quintal</label>
-                  <input value="{{service_old.0.horas_quintal}}" type="input" class="form-control" name="horas_quintal" data-mask="0"
+                  <input value="{{service_old.0.horas_quintal}}" type="input" required class="form-control" name="horas_quintal" data-mask="0"
                     id="horas_quintal" placeholder="Quantidade horas por quintal" />
                 </div>
               </div>
@@ -163,7 +164,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="valor_outros">Valor por outros tipos de cômodos</label>
-                  <input value="{{service_old.0.valor_outros}}" type="input" class="form-control" name="valor_outros" id="valor_outros"
+                  <input value="{{service_old.0.valor_outros}}" type="input" required class="form-control" name="valor_outros" id="valor_outros"
                     data-mask="#.##0,00" data-mask-reverse="true" placeholder="Valor por outros" />
                 </div>
               </div>
@@ -171,7 +172,7 @@
                 <div class="form-group">
                   <label for="horas_outros">Quantidade de horas por outros tipos de
                     cômodos</label>
-                  <input value="{{service_old.0.horas_outros}}" type="input" class="form-control" name="horas_outros" data-mask="0" id="horas_outros"
+                  <input value="{{service_old.0.horas_outros}}" type="input" required class="form-control" name="horas_outros" data-mask="0" id="horas_outros"
                     placeholder="Quantidade horas por outros" />
                 </div>
               </div>

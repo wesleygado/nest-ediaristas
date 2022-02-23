@@ -25,6 +25,7 @@ export class AppController {
         class: req.flash('class'),
         invalid: req.flash('invalid'),
         user_name: req.flash('user_name'),
+        csrfToken: req.csrfToken(),
       });
     } else {
       res.redirect('home');
@@ -38,14 +39,15 @@ export class AppController {
     res.redirect('/home');
   }
 
+  @UseFilters(AuthExceptionFilter)
   @Post('logout')
   logout(@Request() req, @Res() res: Response) {
     req.logout();
     res.redirect('/login');
   }
 
-  @UseFilters(AuthExceptionFilter)
   @UseGuards(AuthenticatedGuard)
+  @UseFilters(AuthExceptionFilter)
   @Get('/home')
   @Render('home')
   home(@Request() req) {

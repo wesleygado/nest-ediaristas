@@ -33,7 +33,7 @@
         </div>
         <div class="card-body login-card-body ">
           <form action="/login" method="post">
-            <input type="hidden" name="_token" value="">
+              <input type="hidden" name="_csrf" value="{{csrfToken}}">
             <div class="input-group mb-3">
               <input type="email" name="username" class="form-control {{ class }}" value="{{user_name}}" placeholder="Email" autofocus>
               <div class="input-group-append">
@@ -52,13 +52,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-7">
-                <div class="icheck-primary">
-                  <input type="checkbox" name="remember" id="remember">
-                  <label for="remember">Lembrar-me</label>
-                </div>
-              </div>
-              <div class="col-5">
+              <div class="col-12">
                 <button type=submit class="btn btn-block btn-flat btn-primary">
                   <span class="fas fa-sign-in-alt"></span>
                   Entrar
@@ -66,13 +60,6 @@
               </div>
             </div>
           </form>
-        </div>
-        <div class="card-footer ">
-          <p class="my-0">
-            <a href="#">
-              Esqueci minha senha
-            </a>
-          </p>
         </div>
       </div>
     </div>
