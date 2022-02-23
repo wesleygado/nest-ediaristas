@@ -57,6 +57,11 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+## Criar usuário admin
+
+```bash
+$ npm run create:user
+```
 
 ## Support
 
