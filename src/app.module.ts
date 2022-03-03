@@ -14,6 +14,7 @@ import { UserCommand } from './usuarios/usuarios.command';
 import { UsersService } from './usuarios/usuarios.service';
 import { UsersController } from './usuarios/usuarios.controller';
 import { UsersRepository } from './usuarios/usuarios.repository';
+import * as ormconfig from 'src/ormconfig';
 
 @Module({
   imports: [
@@ -22,16 +23,7 @@ import { UsersRepository } from './usuarios/usuarios.repository';
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: process.env.HOST,
-      port: parseInt(process.env.PORT),
-      username: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE,
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
+    TypeOrmModule.forRoot(ormconfig),
     AuthModule,
     ServicesModule,
   ],
