@@ -1,16 +1,16 @@
 import { EntityRepository, Repository } from 'typeorm';
 import { CreateServiceDto } from './dto/create-servico.dto';
-import { Service } from './entities/servico.entity';
+import { Servico } from './entities/servico.entity';
 
-@EntityRepository(Service)
-export class ServicesRepository extends Repository<Service> {
-  async getServices(): Promise<Service[]> {
-    const query = this.createQueryBuilder('service');
+@EntityRepository(Servico)
+export class ServicesRepository extends Repository<Servico> {
+  async getServices(): Promise<Servico[]> {
+    const query = this.createQueryBuilder('servico');
     const services = await query.getMany();
     return services;
   }
 
-  async createService(createServiceDto: CreateServiceDto): Promise<Service> {
+  async createService(createServiceDto: CreateServiceDto): Promise<Servico> {
     const {
       name,
       valor_minimo,

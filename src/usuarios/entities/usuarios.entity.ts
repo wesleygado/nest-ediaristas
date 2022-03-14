@@ -9,7 +9,7 @@ import {
 import * as bcrypt from 'bcrypt';
 
 @Entity()
-export class User {
+export class UsuarioPlataforma {
   @PrimaryGeneratedColumn('increment')
   id: number;
 

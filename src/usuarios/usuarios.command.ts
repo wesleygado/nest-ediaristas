@@ -1,6 +1,6 @@
 import { Command, Positional, Option } from 'nestjs-command';
 import { Injectable } from '@nestjs/common';
-import { User } from './entities/usuarios.entity';
+import { UsuarioPlataforma } from './entities/usuarios.entity';
 import { EntityRepository, Repository } from 'typeorm';
 import { UsersService } from './usuarios.service';
 
