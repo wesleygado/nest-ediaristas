@@ -1,0 +1,44 @@
+<div class="content-header">
+  <div class="container-fluid">
+    <h1>Lista de Diárias</h1>
+  </div>
+</div>
+
+<div class="content">
+  <div class="container-fluid">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Status</th>
+          <th scope="col">Nome Clientes</th>
+          <th scope="col">Nome Diaristas</th>
+          <th scope="col">Data Atendimento</th>
+          <th scope="col">Preços</th>
+          <th scope="col">Comissão</th>
+          <th scope="col">Transferências</th>         
+          <th scope="col">Ação</th>         
+        </tr>
+      </thead>
+      <tbody>
+        {{#each diarias}}
+        <tr>
+          <th>{{this.id}}</th>
+          <td>{{this.status}}</td>
+          <td>{{this.cliente}}</td>
+          <td>{{this.diarista}}</td>
+          <td>{{#converterData this.data_atendimento}}{{/converterData}}</td>
+          <td>{{#converterReal this.preco}}{{/converterReal}}</td>
+          <td>{{#converterReal this.valor_comissao}}{{/converterReal}}</td>
+          <td>{{#calcularTransferencia this.preco this.valor_comissao}}{{/calcularTransferencia}}</td>
+          <td><a {{#validarPagamento this.status this.id}}{{/validarPagamento}}>
+             Marcar como transferido
+          </a></td>
+         </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    <div class="d-flex justify-content-center"></div>
+  </div>
+</div>

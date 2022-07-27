@@ -32,7 +32,7 @@ export class UsersController {
     return {
       message: req.flash('message'),
       alert: req.flash('alert'),
-      user_old: req.flash('old'),
+      userOld: req.flash('old'),
       csrfToken: req.csrfToken(),
     };
   }
@@ -70,7 +70,7 @@ export class UsersController {
         user: user,
         message: req.flash('message'),
         alert: req.flash('alert'),
-        user_old: req.flash('old'),
+        userOld: req.flash('old'),
         csrfToken: req.csrfToken(),
       };
     }

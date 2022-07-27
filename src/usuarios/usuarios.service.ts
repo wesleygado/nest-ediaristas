@@ -18,7 +18,7 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     const user = await this.findUserByEmail(createUserDto.email);
 
-    if (createUserDto.password !== createUserDto.password_confirmation) {
+    if (createUserDto.password !== createUserDto.passwordConfirmation) {
       throw new BadRequestException(`Senha não confere`);
     } else if (!user) {
       return this.usersRepository.createUser(createUserDto);
@@ -43,7 +43,7 @@ export class UsersService {
     const user = await this.findOne(id);
     const email = await this.findUserByEmail(updateUserDto.email);
 
-    if (updateUserDto.password !== updateUserDto.password_confirmation) {
+    if (updateUserDto.password !== updateUserDto.passwordConfirmation) {
       throw new BadRequestException(`Senha não confere`);
     } else if (email === undefined || email.email === user.email) {
       user.name = updateUserDto.name;

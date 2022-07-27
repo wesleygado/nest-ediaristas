@@ -16,49 +16,49 @@ export class Servico {
   name: string;
 
   @Column()
-  valor_minimo: number;
+  valorMinimo: number;
 
   @Column()
-  quantidade_horas: number;
+  quantidadeHoras: number;
 
   @Column()
   porcentagem: number;
 
   @Column()
-  valor_quarto: number;
+  valorQuarto: number;
 
   @Column()
-  horas_quarto: number;
+  horasQuarto: number;
 
   @Column()
-  valor_sala: number;
+  valorSala: number;
 
   @Column()
-  horas_sala: number;
+  horasSala: number;
 
   @Column()
-  valor_banheiro: number;
+  valorBanheiro: number;
 
   @Column()
-  horas_banheiro: number;
+  horasBanheiro: number;
 
   @Column()
-  valor_cozinha: number;
+  valorCozinha: number;
 
   @Column()
-  horas_cozinha: number;
+  horasCozinha: number;
 
   @Column()
-  valor_quintal: number;
+  valorQuintal: number;
 
   @Column()
-  horas_quintal: number;
+  horasQuintal: number;
 
   @Column()
-  valor_outros: number;
+  valorOutros: number;
 
   @Column()
-  horas_outros: number;
+  horasOutros: number;
 
   @Column()
   icone: string;
@@ -70,12 +70,12 @@ export class Servico {
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
-  public created_at: Date;
+  public createdAt: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
-  public updated_at: Date;
+  public updatedAt: Date;
 }

@@ -13,7 +13,11 @@ import * as express from 'express';
 import * as csrf from 'csurf';
 import * as cookieParser from 'cookie-parser';
 import { CommandModule, CommandService } from 'nestjs-command';
-import { getConnection } from 'typeorm';
+import { EntityRepository, getConnection } from 'typeorm';
+import DiariaStatus from './diarias/diaria-status.enum';
+import { DiariasService } from './diarias/diarias.service';
+import { DiariaRepository } from './diarias/diarias.repository';
+import { getManager } from 'typeorm';
 
 async function bootstrap() {
   const exp = express();
@@ -53,6 +57,42 @@ async function bootstrap() {
         userMenu: function () {
           const user = exp.locals.expreq;
           return user['user']['name'];
+        },
+        calcularTransferencia: function (preco: number, comissao: number) {
+          const valorTransferencia = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          });
+          const transferencia = preco - comissao;
+          return valorTransferencia.format(transferencia);
+        },
+        converterReal: function (valor: number) {
+          const formatter = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          });
+          return formatter.format(valor);
+        },
+        converterData: function (data: Date) {
+          const dataAtendimento = new Date(data);
+          const horas = String(dataAtendimento.getHours()).padStart(2, '0');
+          const minutos = String(dataAtendimento.getMinutes()).padStart(2, '0');
+          const segundos = String(dataAtendimento.getSeconds()).padStart(
+            2,
+            '0',
+          );
+          return `${dataAtendimento.toLocaleDateString(
+            'pt-BR',
+          )} ${horas}:${minutos}:${segundos}`;
+        },
+        validarPagamento: function (status: number, id: number) {
+          if (
+            status === DiariaStatus.AVALIADO ||
+            status === DiariaStatus.CONCLUIDO
+          ) {
+            return `href="${id}/pagar" class="btn btn-primary" onclick="alert('Confirma a alteração de Status para Transferido?)"`;
+          }
+          return 'class="btn btn-danger disabled"';
         },
       },
     }),

@@ -12,14 +12,14 @@
             <div class="form-group">
                 <input type="hidden" name="_csrf" value="{{csrfToken}}">
               <label for="name">Nome do usuário</label>
-                <input value="{{#if message}}{{user_old.0.name}}{{^}}{{user.name}}{{/if}}" type="input" class="form-control" required name="name" id="name"
-                  placeholder="Digite o nome do usuário">
+                <input value="{{#if message}}{{userOld.0.name}}{{^}}{{user.name}}{{/if}}" type="input" class="form-control" required name="name"
+                placeholder="Digite o nome do usuário">
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="email">Email do usuário</label>
-                <input value="{{#if message}}{{user_old.0.email}}{{^}}{{user.email}}{{/if}}" type="text" class="form-control" required name="email" id="email"
+                <input value="{{#if message}}{{userOld.0.email}}{{^}}{{user.email}}{{/if}}" type="text" class="form-control" required name="email"
                   placeholder="Digite o email do usuário">
             </div>
           </div>
@@ -36,8 +36,8 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="password_confirmation">Confirmação da senha</label>
-              <input value="" type="password" class="form-control" required name="password_confirmation"
-                id="password_confirmation" placeholder="Confirme a senha do usuário">
+              <input value="" type="password" class="form-control" required name="passwordConfirmation"
+                placeholder="Confirme a senha do usuário">
             </div>
           </div>
         </div>

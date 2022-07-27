@@ -16,5 +16,5 @@ export class CreateUserDto {
   })
   password: string;
 
-  password_confirmation: string;
+  passwordConfirmation: string;
 }

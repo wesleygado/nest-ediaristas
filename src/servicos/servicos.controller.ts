@@ -30,7 +30,7 @@ export class ServicesController {
   @Render('services/create')
   getCreate(@Request() req) {
     return {
-      service_old: req.flash('old'),
+      serviceOld: req.flash('old'),
       alert: req.flash('alert'),
       message: req.flash('message'),
       csrfToken: req.csrfToken(),
@@ -67,7 +67,7 @@ export class ServicesController {
         service: service,
         message: req.flash('message'),
         alert: req.flash('alert'),
-        service_old: req.flash('old'),
+        serviceOld: req.flash('old'),
         csrfToken: req.csrfToken(),
       };
     }

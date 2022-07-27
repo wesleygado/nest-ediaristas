@@ -15,32 +15,32 @@ export class ServicesService {
   ) {}
 
   async create(createServiceDto: CreateServiceDto) {
-    createServiceDto.valor_minimo = this.utils.formatDecimal(
-      createServiceDto.valor_minimo,
+    createServiceDto.valorMinimo = this.utils.formatDecimal(
+      createServiceDto.valorMinimo,
     );
 
-    createServiceDto.valor_sala = this.utils.formatDecimal(
-      createServiceDto.valor_sala,
+    createServiceDto.valorSala = this.utils.formatDecimal(
+      createServiceDto.valorSala,
     );
 
-    createServiceDto.valor_quarto = this.utils.formatDecimal(
-      createServiceDto.valor_quarto,
+    createServiceDto.valorQuarto = this.utils.formatDecimal(
+      createServiceDto.valorQuarto,
     );
 
-    createServiceDto.valor_banheiro = this.utils.formatDecimal(
-      createServiceDto.valor_banheiro,
+    createServiceDto.valorBanheiro = this.utils.formatDecimal(
+      createServiceDto.valorBanheiro,
     );
 
-    createServiceDto.valor_cozinha = this.utils.formatDecimal(
-      createServiceDto.valor_cozinha,
+    createServiceDto.valorCozinha = this.utils.formatDecimal(
+      createServiceDto.valorCozinha,
     );
 
-    createServiceDto.valor_quintal = this.utils.formatDecimal(
-      createServiceDto.valor_quintal,
+    createServiceDto.valorQuintal = this.utils.formatDecimal(
+      createServiceDto.valorQuintal,
     );
 
-    createServiceDto.valor_outros = this.utils.formatDecimal(
-      createServiceDto.valor_outros,
+    createServiceDto.valorOutros = this.utils.formatDecimal(
+      createServiceDto.valorOutros,
     );
     return await this.servicesRepository.createService(createServiceDto);
   }
@@ -57,26 +57,24 @@ export class ServicesService {
     const service = await this.findOne(id);
     const serviceDTO = updateServiceDto;
     serviceDTO.id = service.id;
-    serviceDTO.valor_sala = this.utils.formatDecimal(
-      updateServiceDto.valor_sala,
+    serviceDTO.valorSala = this.utils.formatDecimal(updateServiceDto.valorSala);
+    serviceDTO.valorQuarto = this.utils.formatDecimal(
+      updateServiceDto.valorQuarto,
     );
-    serviceDTO.valor_quarto = this.utils.formatDecimal(
-      updateServiceDto.valor_quarto,
+    serviceDTO.valorMinimo = this.utils.formatDecimal(
+      updateServiceDto.valorMinimo,
     );
-    serviceDTO.valor_minimo = this.utils.formatDecimal(
-      updateServiceDto.valor_minimo,
+    serviceDTO.valorBanheiro = this.utils.formatDecimal(
+      updateServiceDto.valorBanheiro,
     );
-    serviceDTO.valor_banheiro = this.utils.formatDecimal(
-      updateServiceDto.valor_banheiro,
+    serviceDTO.valorCozinha = this.utils.formatDecimal(
+      updateServiceDto.valorCozinha,
     );
-    serviceDTO.valor_cozinha = this.utils.formatDecimal(
-      updateServiceDto.valor_cozinha,
+    serviceDTO.valorQuintal = this.utils.formatDecimal(
+      updateServiceDto.valorQuintal,
     );
-    serviceDTO.valor_quintal = this.utils.formatDecimal(
-      updateServiceDto.valor_quintal,
-    );
-    serviceDTO.valor_outros = this.utils.formatDecimal(
-      updateServiceDto.valor_outros,
+    serviceDTO.valorOutros = this.utils.formatDecimal(
+      updateServiceDto.valorOutros,
     );
     await this.servicesRepository.save(serviceDTO);
 

@@ -38,14 +38,14 @@ export class UserCommand {
       type: 'string',
       required: true,
     })
-    password_confirmation: string,
+    passwordConfirmation: string,
   ) {
     this.usersService.create({
       name,
       email,
       password,
       id: 0,
-      password_confirmation,
+      passwordConfirmation,
     });
   }
 }

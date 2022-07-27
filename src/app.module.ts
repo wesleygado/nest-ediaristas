@@ -14,6 +14,7 @@ import { UserCommand } from './usuarios/usuarios.command';
 import { UsersService } from './usuarios/usuarios.service';
 import { UsersController } from './usuarios/usuarios.controller';
 import { UsersRepository } from './usuarios/usuarios.repository';
+import { DiariasModule } from './diarias/diarias.module';
 import * as ormconfig from 'src/ormconfig';
 
 @Module({
@@ -26,6 +27,7 @@ import * as ormconfig from 'src/ormconfig';
     TypeOrmModule.forRoot(ormconfig),
     AuthModule,
     ServicesModule,
+    DiariasModule,
   ],
   controllers: [AppController],
   providers: [
