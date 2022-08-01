@@ -24,40 +24,42 @@
       <div class='login-logo'>
         <a href='/home'>
           <img src='img/logo.png' height='50' />
-          <b>Administração</b>
+          <b>Resetar Senha</b>
         </a>
       </div>
       <div class='card card-outline card-primary'>
         <div class='card-header'>
           <h3 class='card-title float-none text-center'>
-            Entre para iniciar uma nova sessão
+            Digite seu email para a recuperação de senha
           </h3>
         </div>
         <div class='card-body login-card-body'>
-          <form action='/login' method='post'>
+          <form action='/confirmacao' method='post'>
             <input type='hidden' name='_csrf' value='{{csrfToken}}' />
+            <input type='hidden' name='tokenPassword' value='{{tokenPassword}}' />
             <div class='input-group mb-3'>
               <input
-                type='email'
-                name='username'
-                class='form-control {{class}}'
-                value='{{user_name}}'
-                placeholder='Email'
+                type='password'
+                name='senha'
+                class='form-control'
+                value=''
+                placeholder='Nova Senha'
                 autofocus
               />
               <div class='input-group-append'>
                 <div class='input-group-text'>
-                  <span class='fas fa-envelope'></span>
+                  <span class='fas fa-lock'></span>
                 </div>
               </div>
             </div>
-            <div class={{invalid}}><strong>{{message}}</strong></div>
             <div class='input-group mb-3'>
               <input
                 type='password'
-                name='password'
-                class='form-control {{class}}'
-                placeholder='Senha'
+                name='confirmacaoSenha'
+                class='form-control'
+                value=''
+                placeholder='Confirmar Senha'
+                autofocus
               />
               <div class='input-group-append'>
                 <div class='input-group-text'>
@@ -67,16 +69,14 @@
             </div>
             <div class='row'>
               <div class='col-12'>
-                <button
-                  type='submit'
-                  class='btn btn-block btn-flat btn-primary'
-                >
-                  <span class='fas fa-sign-in-alt'></span>
-                  Entrar
-                </button>
-                <div class='mt-1 text-center'>
-                  <span><a href='password-reset'>Esqueci a senha</a></span>
-                </div>
+                  <button
+                    type='submit'
+                    class='btn btn-block btn-flat btn-primary'
+                    onClick="alert('Faça o Login novamente');"
+                  >
+                    <span class='fas fa-sign-in-alt'></span>
+                    Enviar
+                  </button>
               </div>
             </div>
           </form>

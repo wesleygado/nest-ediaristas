@@ -12,12 +12,7 @@ import { Request } from 'express';
 import * as express from 'express';
 import * as csrf from 'csurf';
 import * as cookieParser from 'cookie-parser';
-import { CommandModule, CommandService } from 'nestjs-command';
-import { EntityRepository, getConnection } from 'typeorm';
 import DiariaStatus from './diarias/diaria-status.enum';
-import { DiariasService } from './diarias/diarias.service';
-import { DiariaRepository } from './diarias/diarias.repository';
-import { getManager } from 'typeorm';
 
 async function bootstrap() {
   const exp = express();
@@ -90,9 +85,58 @@ async function bootstrap() {
             status === DiariaStatus.AVALIADO ||
             status === DiariaStatus.CONCLUIDO
           ) {
-            return `href="${id}/pagar" class="btn btn-primary" onclick="alert('Confirma a alteração de Status para Transferido?)"`;
+            return `href="${id}/pagar" class="btn btn-primary"`;
           }
           return 'class="btn btn-danger disabled"';
+        },
+        exibirStatus: (status: number) => {
+          switch (status) {
+            case 1:
+              return 'Aguardando Pagamento';
+            case 2:
+              return 'PAGO';
+            case 3:
+              return 'Diarista Selecionado';
+            case 4:
+              return 'Presença Confirmada';
+            case 5:
+              return 'Cancelada';
+            case 6:
+              return 'Avaliada';
+            case 7:
+              return 'Transferido para diarista';
+            default:
+              return 'SEM STATUS';
+          }
+        },
+        getParamCliente: (param: string) => {
+          const protocol = exp.locals.expreq.protocol;
+          const host = exp.locals.expreq.hostname;
+          const url = exp.locals.expreq.originalUrl;
+          const port = 3000;
+
+          const fullUrl = new URL(`${protocol}://${host}:${port}${url}`);
+          console.log(fullUrl);
+          const paramFilter = fullUrl.searchParams.get(param);
+          paramFilter === '123' ? true : false;
+          paramFilter === '5' ? true : false;
+          paramFilter === '467' ? true : false;
+          return fullUrl.searchParams.get(param);
+        },
+        getParamStatus: (param: string, value: string) => {
+          const protocol = exp.locals.expreq.protocol;
+          const host = exp.locals.expreq.hostname;
+          const url = exp.locals.expreq.originalUrl;
+          const port = 3000;
+          const fullUrl = new URL(`${protocol}://${host}:${port}${url}`);
+          const paramFilter = fullUrl.searchParams.get(param);
+          if (paramFilter === value) {
+            return 'selected';
+          }
+          return '';
+        },
+        token: () => {
+          return exp.locals.expreq.csrfToken();
         },
       },
     }),

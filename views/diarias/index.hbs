@@ -2,6 +2,45 @@
   <div class="container-fluid">
     <h1>Lista de Diárias</h1>
   </div>
+
+  <div class="card-tools float-right mr-2">
+              <form method="GET" class="form-inline">
+                <label for="cliente" class="sr-only">Nome do cliente</label>
+                <input
+                  type="text"
+                  name="cliente"
+                  class="form-control mb-2 mr-sm-2"
+                  placeholder="Buscar por cliente"
+                  value="{{#getParamCliente 'cliente'}}{{/getParamCliente}}"
+                >
+
+                <label for="status" class="sr-only">Status</label>
+                <select name="status" class="form-control mb-2 mr-sm-2">
+                  <option value="" >Todas</option>
+                  <option
+                    value="123"
+                    {{#getParamStatus 'status' '123'}}{{/getParamStatus}}
+                 >
+                    Pendentes
+                  </option>
+                  <option
+                    value="5"
+                    {{#getParamStatus 'status' '5'}}{{/getParamStatus}}
+                  >
+                    Canceladas
+                  </option>
+                  <option
+                    value="467"
+                    {{#getParamStatus 'status' '467'}}{{/getParamStatus}}
+                  >
+                    Concluídas
+                  </option>
+                </select>
+
+                <button type="submit" class="btn btn-primary mb-2">Filtrar</button>
+                <a href="/diarias/index" class="btn btn-default mb-2 ml-2">Limpar</a>
+              </form>
+            </div>
 </div>
 
 <div class="content">
@@ -24,14 +63,14 @@
         {{#each diarias}}
         <tr>
           <th>{{this.id}}</th>
-          <td>{{this.status}}</td>
-          <td>{{this.cliente}}</td>
-          <td>{{this.diarista}}</td>
-          <td>{{#converterData this.data_atendimento}}{{/converterData}}</td>
+          <td>{{#exibirStatus this.status}}{{/exibirStatus}}</td>
+          <td>{{this.cliente.nomeCompleto}}</td>
+          <td>{{this.diarista.nomeCompleto}}</td>
+          <td>{{#converterData this.dataAtendimento}}{{/converterData}}</td>
           <td>{{#converterReal this.preco}}{{/converterReal}}</td>
-          <td>{{#converterReal this.valor_comissao}}{{/converterReal}}</td>
-          <td>{{#calcularTransferencia this.preco this.valor_comissao}}{{/calcularTransferencia}}</td>
-          <td><a {{#validarPagamento this.status this.id}}{{/validarPagamento}}>
+          <td>{{#converterReal this.valorComissao}}{{/converterReal}}</td>
+          <td>{{#calcularTransferencia this.preco this.valorComissao}}{{/calcularTransferencia}}</td>
+          <td><a {{#validarPagamento this.status this.id}}{{/validarPagamento}} onclick="alert('Confirma a alteração de Status para Transferido?')">
              Marcar como transferido
           </a></td>
          </tr>

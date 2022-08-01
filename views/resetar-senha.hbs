@@ -24,23 +24,23 @@
       <div class='login-logo'>
         <a href='/home'>
           <img src='img/logo.png' height='50' />
-          <b>Administração</b>
+          <b>Resetar Senha</b>
         </a>
       </div>
       <div class='card card-outline card-primary'>
         <div class='card-header'>
           <h3 class='card-title float-none text-center'>
-            Entre para iniciar uma nova sessão
+            Digite seu email para a recuperação de senha
           </h3>
         </div>
         <div class='card-body login-card-body'>
-          <form action='/login' method='post'>
+          <form action='/password-reset' method='post'>
             <input type='hidden' name='_csrf' value='{{csrfToken}}' />
             <div class='input-group mb-3'>
               <input
                 type='email'
-                name='username'
-                class='form-control {{class}}'
+                name='email'
+                class='form-control'
                 value='{{user_name}}'
                 placeholder='Email'
                 autofocus
@@ -52,31 +52,17 @@
               </div>
             </div>
             <div class={{invalid}}><strong>{{message}}</strong></div>
-            <div class='input-group mb-3'>
-              <input
-                type='password'
-                name='password'
-                class='form-control {{class}}'
-                placeholder='Senha'
-              />
-              <div class='input-group-append'>
-                <div class='input-group-text'>
-                  <span class='fas fa-lock'></span>
-                </div>
-              </div>
-            </div>
+            <div><strong>{{messageEmail}}</strong></div>
             <div class='row'>
               <div class='col-12'>
-                <button
-                  type='submit'
-                  class='btn btn-block btn-flat btn-primary'
-                >
-                  <span class='fas fa-sign-in-alt'></span>
-                  Entrar
-                </button>
-                <div class='mt-1 text-center'>
-                  <span><a href='password-reset'>Esqueci a senha</a></span>
-                </div>
+                  <button
+                    type='submit'
+                    class='btn btn-block btn-flat btn-primary'
+                    onClick="alert('Enviamos as instruções de reset de senha para o seu email cadastrado');"
+                  >
+                    <span class='fas fa-sign-in-alt'></span>
+                    Enviar
+                  </button>
               </div>
             </div>
           </form>

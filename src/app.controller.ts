@@ -42,7 +42,7 @@ export class AppController {
   @UseFilters(AuthExceptionFilter)
   @Post('logout')
   logout(@Request() req, @Res() res: Response) {
-    req.logout();
+    req.session.destroy();
     res.redirect('/login');
   }
 

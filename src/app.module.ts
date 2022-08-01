@@ -15,10 +15,17 @@ import { UsersService } from './usuarios/usuarios.service';
 import { UsersController } from './usuarios/usuarios.controller';
 import { UsersRepository } from './usuarios/usuarios.repository';
 import { DiariasModule } from './diarias/diarias.module';
+import { UsuarioApiModule } from './usuario-api/usuario-api.module';
+import { PasswordResetModule } from './password-reset/password-reset.module';
 import * as ormconfig from 'src/ormconfig';
+import { MailModule } from './common/mail/mail.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    MailModule,
     UsersModule,
     CommandModule,
     ConfigModule.forRoot({
@@ -28,6 +35,8 @@ import * as ormconfig from 'src/ormconfig';
     AuthModule,
     ServicesModule,
     DiariasModule,
+    UsuarioApiModule,
+    PasswordResetModule,
   ],
   controllers: [AppController],
   providers: [
