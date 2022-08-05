@@ -13,9 +13,9 @@ import {
   Request,
   NotFoundException,
 } from '@nestjs/common';
-import { UsersService } from './usuarios.service';
-import { CreateUserDto } from './dto/create-usuario.dto';
-import { UpdateUserDto } from './dto/update-usuario.dto';
+import { UsersService } from './usuario-plataforma.service';
+import { CreateUserDto } from './dto/create-usuario-plataforma.dto';
+import { UpdateUserDto } from './dto/update-usuario-plataforma.dto';
 import { AuthenticatedGuard } from 'src/common/guards/authenticated.guard';
 import { AuthExceptionFilter } from 'src/common/filters/auth-exceptions.filter';
 import { CreateException } from 'src/common/filters/create-exceptions.filter';

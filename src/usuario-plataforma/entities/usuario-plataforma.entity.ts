@@ -1,11 +1,12 @@
 import {
-  BeforeInsert,
+  Entity,
   Column,
   CreateDateColumn,
-  Entity,
+  BeforeInsert,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
 import * as bcrypt from 'bcrypt';
 
 @Entity()

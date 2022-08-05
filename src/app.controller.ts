@@ -7,15 +7,21 @@ import {
   UseGuards,
   Request,
   UseFilters,
+  Redirect,
 } from '@nestjs/common';
 import { AuthenticatedGuard } from './common/guards/authenticated.guard';
 import { LoginGuard } from './common/guards/login.guard';
 import { Response } from 'express';
 import { AuthExceptionFilter } from './common/filters/auth-exceptions.filter';
-import { AuthGuard } from '@nestjs/passport';
 
 @Controller()
 export class AppController {
+  @Get()
+  @Redirect('/login')
+  doIndex() {
+    //
+  }
+
   @Get('login')
   async login(@Request() req, @Res() res: Response) {
     if (!req.isAuthenticated()) {

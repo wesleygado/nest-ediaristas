@@ -3,26 +3,16 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { stringify } from 'querystring';
-import { filter } from 'rxjs';
-import { getManager } from 'typeorm';
 import DiariaStatus from './diaria-status.enum';
-import { DiariaMapper } from './diaria.mapper';
-import { DiariaRepository } from './diarias.repository';
-import { DiariaMapperDto } from './dto/diaria.mapper.dto';
+import { DiariasRepository } from './diarias.repository';
 import { GetDiariasFilterDto } from './dto/get-diarias-filter.dto';
 import { Diaria } from './entities/diaria.entity';
 
 @Injectable()
 export class DiariasService {
-  constructor(
-    @InjectRepository(DiariaRepository)
-    private diariaRepository: DiariaRepository,
-    private diariaMapper: DiariaMapper,
-  ) {}
+  constructor(private diaria: DiariasRepository) {}
   async findAll(): Promise<Diaria[]> {
-    const diarias = await this.diariaRepository.listarDiarias();
+    const diarias = await this.diaria.repository.listarDiarias();
     return diarias;
   }
 
@@ -53,7 +43,7 @@ export class DiariasService {
     const diaria = await this.buscarDiariaporid(id);
     await this.validarDiariaPagamento(diaria);
     diaria.status = DiariaStatus.TRANSFERIDO;
-    await this.diariaRepository.save(diaria);
+    await this.diaria.repository.save(diaria);
     return '';
   }
   private async validarDiariaPagamento(diaria: Diaria) {
@@ -67,7 +57,7 @@ export class DiariasService {
   }
 
   private async buscarDiariaporid(id: number) {
-    const diaria = await this.diariaRepository.findOne(id);
+    const diaria = await this.diaria.repository.findOneBy({ id: id });
     if (!diaria) {
       throw new NotFoundException();
     }

@@ -6,47 +6,41 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomUUID } from 'crypto';
 import { MailService } from 'src/common/mail/mail.service';
-import { UsuarioApiRepository } from 'src/usuario-api/usuario-api.repository';
-import { UsersRepository } from 'src/usuarios/usuarios.repository';
+import { UsersRepository } from 'src/usuario-plataforma/usuario-plataforma.repository';
+import { Repository } from 'typeorm';
 import { PasswordResetConfirmacaoDto } from './dto/password-reset-confirmacao';
 import { PasswordReset } from './entities/password-reset.entity';
-import { PasswordResetRepository } from './password-reset.repository';
 
 @Injectable()
 export class PasswordResetService {
   constructor(
-    @InjectRepository(PasswordResetRepository)
-    private passwordRepository: PasswordResetRepository,
-    @InjectRepository(UsersRepository)
-    private usuarioRepository: UsersRepository,
+    @InjectRepository(PasswordReset)
+    private passwordRepository: Repository<PasswordReset>,
+    private usuario: UsersRepository,
     private mail: MailService,
   ) {}
 
   async criarPasswordReset(email: string) {
     const passwordReset = new PasswordReset();
-    if (
-      (await this.usuarioRepository.findAndCount({ email: email })).length > 0
-    ) {
+    if ((await this.usuario.repository.findBy({ email: email })).length > 0) {
       passwordReset.email = email;
       passwordReset.token = randomUUID();
       await this.passwordRepository.save(passwordReset);
     }
     if (passwordReset.email != null) {
-      console.log(passwordReset.email);
-      this.mail.enviarEmailDeResetDeSenha(passwordReset);
+      /*       console.log(passwordReset.email);
+      this.mail.enviarEmailDeResetDeSenha(passwordReset); */
     }
     return null;
   }
 
   async resetarSenha(token: string, novaSenha: string) {
     const passwordReset = await this.buscarPasswordResetPorToken(token);
-    console.log(passwordReset);
-    const usuario = await this.usuarioRepository.findOne({
+    const usuario = await this.usuario.repository.findOneBy({
       email: passwordReset.email,
     });
-    console.log(usuario);
     await usuario.setPassword(novaSenha);
-    await this.usuarioRepository.save(usuario);
+    await this.usuario.repository.save(usuario);
     await this.passwordRepository.delete(passwordReset.id);
   }
 
@@ -61,7 +55,7 @@ export class PasswordResetService {
   }
 
   private async buscarPasswordResetPorToken(passwordResetToken: string) {
-    const passwordReset = await this.passwordRepository.findOne({
+    const passwordReset = await this.passwordRepository.findOneBy({
       token: passwordResetToken,
     });
     if (!passwordReset) {

@@ -1,8 +1,8 @@
 import { Command, Positional, Option } from 'nestjs-command';
 import { Injectable } from '@nestjs/common';
-import { UsuarioPlataforma } from './entities/usuarios.entity';
-import { EntityRepository, Repository } from 'typeorm';
-import { UsersService } from './usuarios.service';
+import { UsuarioPlataforma } from './entities/usuario-plataforma.entity';
+import { UsersService } from './usuario-plataforma.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserCommand {

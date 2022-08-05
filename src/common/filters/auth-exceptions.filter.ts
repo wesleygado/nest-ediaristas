@@ -20,10 +20,7 @@ export class AuthExceptionFilter implements ExceptionFilter {
       exception instanceof UnauthorizedException ||
       exception instanceof ForbiddenException
     ) {
-      request.flash(
-        'loginError',
-        'Essas credenciais não foram encontradas em nossos registros',
-      );
+      request.flash('loginError', 'Login/Senha inválidos');
       request.flash('user_name', request.body.username);
       request.flash('class', 'is-invalid');
       request.flash('invalid', 'erro-form-login');

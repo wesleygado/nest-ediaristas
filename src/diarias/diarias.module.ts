@@ -2,16 +2,13 @@ import { Module } from '@nestjs/common';
 import { DiariasService } from './diarias.service';
 import { DiariasController } from './diarias.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DiariaRepository } from './diarias.repository';
-import { UsuarioApiRepository } from 'src/usuario-api/usuario-api.repository';
-import { DiariaMapper } from './diaria.mapper';
+import { DiariasRepository } from './diarias.repository';
+import { Diaria } from './entities/diaria.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([DiariaRepository]),
-    TypeOrmModule.forFeature([UsuarioApiRepository]),
-  ],
+  imports: [TypeOrmModule.forFeature([Diaria])],
   controllers: [DiariasController],
-  providers: [DiariasService, DiariaMapper],
+  providers: [DiariasService, DiariasRepository],
+  exports: [DiariasService],
 })
 export class DiariasModule {}

@@ -20,9 +20,10 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
-    "typeorm:migrate": "npm run typeorm migration:generate -- -n",
-    "typeorm:run": "npm run typeorm migration:run"
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "typeorm:migrate": "cross-var npm run typeorm -- -d ./src/database/migrations-config.ts migration:generate ./src/database/migrations/$npm_config_name",
+    "typeorm:run": "npm run typeorm -- -d ./src/database/migrations-config.ts migration:run",
+    "typeorm:revert": "npm run typeorm -- -d ./src/database/migrations-config.ts migration:revert"
   },
   "dependencies": {
     "@nestjs-modules/mailer": "^1.8.1",
@@ -32,13 +33,14 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/passport": "^8.1.0",
     "@nestjs/platform-express": "^8.0.0",
-    "@nestjs/typeorm": "^8.0.3",
+    "@nestjs/typeorm": "^9.0.0",
     "@types/bcrypt": "^5.0.0",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.6",
+    "cross-var": "^1.1.0",
     "csurf": "^1.11.0",
     "express-handlebars": "^6.0.2",
     "express-session": "^1.17.2",
@@ -52,7 +54,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
-    "typeorm": "^0.2.41",
+    "typeorm": "^0.3.7",
     "typeorm-naming-strategies": "^4.1.0",
     "yargs": "^16.2.0"
   },

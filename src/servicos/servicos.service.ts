@@ -8,11 +8,7 @@ import { Utils } from 'src/common/utils/utils';
 
 @Injectable()
 export class ServicesService {
-  constructor(
-    @InjectRepository(ServicesRepository)
-    private servicesRepository: ServicesRepository,
-    private utils: Utils,
-  ) {}
+  constructor(private servico: ServicesRepository, private utils: Utils) {}
 
   async create(createServiceDto: CreateServiceDto) {
     createServiceDto.valorMinimo = this.utils.formatDecimal(
@@ -42,15 +38,15 @@ export class ServicesService {
     createServiceDto.valorOutros = this.utils.formatDecimal(
       createServiceDto.valorOutros,
     );
-    return await this.servicesRepository.createService(createServiceDto);
+    return await this.servico.repository.createService(createServiceDto);
   }
 
   findAll() {
-    return this.servicesRepository.getServices();
+    return this.servico.repository.getServices();
   }
 
   findOne(id: number) {
-    return this.servicesRepository.findOne(id);
+    return this.servico.repository.findOneBy({ id: id });
   }
 
   async update(id: number, updateServiceDto: UpdateServiceDto) {
@@ -76,7 +72,7 @@ export class ServicesService {
     serviceDTO.valorOutros = this.utils.formatDecimal(
       updateServiceDto.valorOutros,
     );
-    await this.servicesRepository.save(serviceDTO);
+    await this.servico.repository.save(serviceDTO);
 
     return service;
   }

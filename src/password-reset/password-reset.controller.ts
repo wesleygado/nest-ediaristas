@@ -8,7 +8,6 @@ import {
   Request,
   Query,
 } from '@nestjs/common';
-import { query } from 'express';
 import { MailService } from 'src/common/mail/mail.service';
 import { PasswordResetConfirmacaoDto } from './dto/password-reset-confirmacao';
 import { PasswordResetDto } from './dto/password-reset.dto';

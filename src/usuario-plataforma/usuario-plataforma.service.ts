@@ -3,40 +3,37 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-usuario.dto';
-import { UpdateUserDto } from './dto/update-usuario.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { UsersRepository } from './usuarios.repository';
+import { CreateUserDto } from './dto/create-usuario-plataforma.dto';
+import { UpdateUserDto } from './dto/update-usuario-plataforma.dto';
+import { UsersRepository } from './usuario-plataforma.repository';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @InjectRepository(UsersRepository)
-    private usersRepository: UsersRepository,
-  ) {}
-
+  constructor(private usuario: UsersRepository) {}
   async create(createUserDto: CreateUserDto) {
     const user = await this.findUserByEmail(createUserDto.email);
 
     if (createUserDto.password !== createUserDto.passwordConfirmation) {
       throw new BadRequestException(`Senha não confere`);
     } else if (!user) {
-      return this.usersRepository.createUser(createUserDto);
+      createUserDto.password = await this.setPassword(createUserDto.password);
+      return this.usuario.repository.save(createUserDto);
     } else {
       throw new BadRequestException(`Email já cadastrado`);
     }
   }
 
   findAll() {
-    return this.usersRepository.getUsers();
+    return this.usuario.repository.find();
   }
 
   findOne(id?: number) {
-    return this.usersRepository.findOne(id);
+    return this.usuario.repository.findOneBy({ id: id });
   }
 
   findUserByEmail(email: string) {
-    return this.usersRepository.findOne({ email: email });
+    return this.usuario.repository.findOneBy({ email: email });
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
@@ -45,11 +42,11 @@ export class UsersService {
 
     if (updateUserDto.password !== updateUserDto.passwordConfirmation) {
       throw new BadRequestException(`Senha não confere`);
-    } else if (email === undefined || email.email === user.email) {
+    } else if (!email || email.email === user.email) {
       user.name = updateUserDto.name;
       user.email = updateUserDto.email;
-      user.password = updateUserDto.password;
-      await this.usersRepository.save(user);
+      user.password = await this.setPassword(updateUserDto.password);
+      await this.usuario.repository.save(user);
       return user;
     } else if (email.email !== user.email) {
       throw new BadRequestException(`Email já cadastrado`);
@@ -57,10 +54,16 @@ export class UsersService {
   }
 
   async remove(id: number) {
-    const result = await this.usersRepository.delete(id);
+    const result = await this.usuario.repository.delete(id);
 
     if (result.affected === 0) {
       throw new NotFoundException(`Nenhum ID encontrado`);
     }
+  }
+
+  private async setPassword(password: string) {
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
+    return passwordHash;
   }
 }
